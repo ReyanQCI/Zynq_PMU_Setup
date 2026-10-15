@@ -139,7 +139,7 @@ void ModCustomInit(void) //What the PMU has to run from .h file
 
 <img width="975" height="650" alt="image" src="https://github.com/user-attachments/assets/ba10fc18-e0d8-4a3e-9c80-504bf6948954" />
 
-
+# 10) Build and Run
 
 
 
