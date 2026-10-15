@@ -131,6 +131,15 @@ void ModCustomInit(void) //What the PMU has to run from .h file
 }
 ```
 
+# 9) Final step
+
+**go to src--> xpfw_user_startup.c and add include the .h file you created**
+
+<img width="517" height="484" alt="image" src="https://github.com/user-attachments/assets/0ea0a856-213b-4d2f-b072-5e2f6df5e2e5" />
+
+<img width="975" height="650" alt="image" src="https://github.com/user-attachments/assets/ba10fc18-e0d8-4a3e-9c80-504bf6948954" />
+
+
 
 
 
