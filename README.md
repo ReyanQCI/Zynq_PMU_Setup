@@ -38,7 +38,7 @@
 
 # 4) Now we have the Vitis application open, you can click on build and debug and continue
 
-# 5) Vitis Step 1
+# 5) Project Properties
 
 **Go to your project in the Explorer tab and click on Properties**
 
@@ -53,6 +53,83 @@
 **Click on the add symbol and add ENABLE_CUSTOM_MOD**
 
 <img width="975" height="568" alt="image" src="https://github.com/user-attachments/assets/3d7203be-020c-43fa-bf2f-a6c2fae5ede1" />
+
+# 6) Debug Configuration
+
+**Go to the dropdown on the debugger at the top and click on Debug Configurations**
+
+<img width="975" height="556" alt="image" src="https://github.com/user-attachments/assets/4d30f3ce-2665-4b46-9844-377f524b0db9" />
+
+****
+**In the configuration click on Single Application Debug (GDB) and uncheck "Stop and 'main'" and click apply**
+
+<img width="975" height="803" alt="image" src="https://github.com/user-attachments/assets/c1417e0b-28f3-40ac-8a78-c8fc0bf99ebc" />
+
+# 7) Create .h file
+
+**In the Explorer tab open the dropdown under your project and add the .h file**
+
+<img width="975" height="931" alt="image" src="https://github.com/user-attachments/assets/98e32cef-ad3e-49dc-afd7-4237367a0319" />
+
+<img width="799" height="928" alt="image" src="https://github.com/user-attachments/assets/aac9f255-49d5-46c0-91da-b45e0a02d79d" />
+
+****
+**Now open the .h file and add this**
+```instuction
+#ifndef XPFW_MOD_CUSTOM_H
+#define XPFW_MOD_CUSTOM_H
+
+void ModCustomInit(void);
+
+#endif
+```
+
+# 8) Create .c file
+
+**The same way the .h was created we need a .c file too**
+
+<img width="791" height="916" alt="image" src="https://github.com/user-attachments/assets/35146c20-36dd-4147-a841-49f4033fc35a" />
+
+****
+**In the .c file you can add this**
+
+```instuction
+#include "xpfw_mod_custom.h"
+#include "xpfw_default.h"
+#include "xpfw_core.h"
+#include "xpfw_module.h"
+#include "sleep.h"
+static const XPfw_Module_t *CustomModPtr;
+
+static void CustomTask(void)
+{
+	Xil_Out32(0xFFD40014, Xil_In32(0xFFD40014) | (1U << 1U)); //LED ON
+	usleep(200000);
+	Xil_Out32(0xFFD40014, Xil_In32(0xFFD40014) & ~(1U << 1U)); //LED OFF
+}
+                    // (points to the custom PMU module, points to the config data(Not used for LED), Lenght/amount of config data in CfgData)
+static void CustomCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+{
+    s32 Status; // 32 bit signed int
+
+                                //(pointer, 1000ms -> 1s, function call)
+    Status = XPfw_CoreScheduleTask(ModPtr, 1000U, CustomTask); // PMU firmware for scheduling a task
+
+    if (XST_FAILURE == Status) {
+        XPfw_Printf(DEBUG_ERROR,"CUSTOM: Scheduling task failed\r\n");
+    }
+}
+
+void ModCustomInit(void) //What the PMU has to run from .h file
+{
+    CustomModPtr = XPfw_CoreCreateMod(); // Creates a module for the PMU
+
+    if (XST_FAILURE == XPfw_CoreSetCfgHandler(CustomModPtr, CustomCfgInit)) { //Calls Function and checks for failures too
+
+        XPfw_Printf(DEBUG_ERROR, "CUSTOM: Set Cfg handler failed\r\n");
+    }
+}
+```
 
 
 
