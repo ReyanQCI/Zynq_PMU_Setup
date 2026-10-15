@@ -31,7 +31,29 @@
 
 <img width="975" height="776" alt="image" src="https://github.com/user-attachments/assets/9bc91c43-d2d5-4f2e-8b62-6ae9dd518cc3" />
 
+****
 **On the next screen select ZynqMP PMU Firmware then click Finish**
 
 <img width="975" height="769" alt="image" src="https://github.com/user-attachments/assets/11822579-1a31-4c26-ae02-20a5c02901f7" />
+
+# 4) Now we have the Vitis application open, you can click on build and debug and continue
+
+# 5) Vitis Step 1
+
+**Go to your project in the Explorer tab and click on Properties**
+
+<img width="780" height="805" alt="image" src="https://github.com/user-attachments/assets/5482866e-4b01-4040-9a7e-468c22519dc9" />
+
+****
+**Now go to C/C++ Build --> Settings --> Symbols**
+
+<img width="975" height="1010" alt="image" src="https://github.com/user-attachments/assets/58186174-e1d8-4159-92d1-135cb319a860" />
+
+*****
+**Click on the add symbol and add ENABLE_CUSTOM_MOD**
+
+<img width="975" height="568" alt="image" src="https://github.com/user-attachments/assets/3d7203be-020c-43fa-bf2f-a6c2fae5ede1" />
+
+
+
 
