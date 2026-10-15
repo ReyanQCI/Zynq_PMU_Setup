@@ -130,6 +130,7 @@ void ModCustomInit(void) //What the PMU has to run from .h file
     }
 }
 ```
+**This code simply calls the PMU scheduler and flashes the LED on and off**
 
 # 9) Final step
 
